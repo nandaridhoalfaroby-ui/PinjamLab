@@ -138,7 +138,7 @@ export default function SplashScreen() {
         <div style={{ display: "flex", gap: 6, justifyContent: "center", flexWrap: "wrap", marginTop: 18 }}>
           <span style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.3)", color: "white", fontSize: 11, fontWeight: 800, padding: "6px 12px", borderRadius: 999 }}>🏫 100+ Ruang</span>
           <span style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.3)", color: "white", fontSize: 11, fontWeight: 800, padding: "6px 12px", borderRadius: 999 }}>⚡ 30 Detik Pinjam</span>
-          <span style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.3)", color: "white", fontSize: 11, fontWeight: 800, padding: "6px 12px", borderRadius: 999 }}>🏆 Juara 1 Dunia</span>
+          <span style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.3)", color: "white", fontSize: 11, fontWeight: 800, padding: "6px 12px", borderRadius: 999 }}>🏆 Website Terbaik</span>
         </div>
       </div>
 
