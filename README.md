@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PinjamLab - Aplikasi Peminjaman Ruang & Laboratorium
 
-## Getting Started
+## Cara Jalanin di Lokal (localhost)
+1. `npm install`
+2. Copy `.env.local` (lihat contoh di atas)
+3. Jalankan SQL di Supabase (lihat file SQL di atas)
+4. `npm run dev` -> buka http://localhost:3000
 
-First, run the development server:
+## Cara Deploy ke Vercel
+1. Push ke GitHub
+2. Import di Vercel, isi Environment Variables (6 kunci Supabase + ADMIN_PASSWORD + SESSION_SECRET)
+3. Deploy -> buka link Vercel-nya
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Alur Utama
+- Pengguna: Beranda -> Lihat Ruang -> Pinjam -> Cek Status (nomor + nama harus cocok)
+- Admin: Login (admin123) -> Admin (Setujui/Tolak) -> Kelola Ruang
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Alur Bisnis
+- Pengajuan dicek: tanggal (bukan kemarin, maks 60 hari, bukan Sabtu/Minggu), jam (07:00-17:00, maks 3 jam), kapasitas, bentrok dengan yang disetujui.
+- Dua permohonan yang bentrok boleh sama-sama menunggu. Saat admin menyetujui satu, yang lain akan ditolak karena bentrok saat mau disetujui.
+- Menolak wajib alasan min 5 huruf, peminjam bisa lihat alasannya di /cek.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Hak Akses (RLS)
+- `ruang`: publik (publishable) hanya baca, rahasia (secret) baca/tambah/ubah/hapus.
+- `peminjaman`: publik tidak ada akses, rahasia baca/tambah/ubah/hapus. Semua akses peminjaman lewat Server Action pake kunci rahasia.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Masalah yang Ditemukan & Perbaikan
+- `useSearchParams` bikin build Vercel gagal prerender -> diganti `window.location` di `useEffect`.
+- `Turbopack` gagal di 【entity-Windows¦canonical_name=Windows】 karena SWC rusak -> pake `next build --webpack`.
+- `Cannot find @tailwindcss/postcss` -> install `tailwindcss` + `@tailwindcss/postcss` + benerin `postcss.config.mjs`.
+- `"use client"` harus baris pertama -> pisah `page.tsx` (server) + `LoginForm.tsx` (client).
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Jawaban Pertanyaan Wawancara (Siap Ditanya Dosen!)
+- Kenapa RLS peminjaman publik 0 akses? Biar nama peminjam + data pengajuan gak bisa diintip orang lewat API publik. Semua lewat server.
+- Kenapa cek bentrok cuma sama yang disetujui? Biar 2 permohonan yang bentrok boleh sama-sama menunggu, sesuai soal.
+- Kenapa tanggal maks 60 hari? Biar gak ada yang booking jauh-jauh hari sampai penuh.

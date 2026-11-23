@@ -1,69 +1,225 @@
-import Image from "next/image";
+// app/page.tsx - Beranda PinjamLab
+// Colorful, anti-white, sangat modern, sangat memukau, tata letak sangat rapi!
 
-export default function Home() {
+import { supabasePublik } from "@/lib/supabase";
+import Link from "next/link";
+
+export const dynamic = "force-dynamic";
+
+export default async function Beranda() {
+  const db = supabasePublik();
+  const { data: ruang } = await db
+    .from("ruang")
+    .select("*")
+    .eq("aktif", true)
+    .limit(6);
+  const list = ruang || [];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div>
+      {/* HERO - UNGU PINK KUNING GRADASI! */}
+      <div
+        style={{
+          background: "linear-gradient(135deg,#1E103A,#4C1D95,#7C3AED,#EC4899)",
+          borderRadius: 28,
+          padding: 36,
+          border: "1px solid #7C3AED",
+          boxShadow: "0 20px 60px rgba(124,58,237,0.4)",
+        }}
+      >
+        <span
+          style={{
+            background: "linear-gradient(90deg,#F59E0B,#EC4899)",
+            color: "white",
+            fontSize: 11,
+            fontWeight: 900,
+            padding: "6px 12px",
+            borderRadius: 999,
+            letterSpacing: 1,
+          }}
+        >
+          🧪 PINJAMLAB • PINJAM RUANG & LAB
+        </span>
+        <h1
+          style={{
+            fontSize: 46,
+            fontWeight: 900,
+            lineHeight: 1.05,
+            margin: "16px 0 0",
+            color: "white",
+          }}
+        >
+          Pinjam Ruang,
+          <br />
+          <span
+            style={{
+              background: "linear-gradient(90deg,#FBBF24,#F472B6,#A78BFA)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Tanpa Ribet!
+          </span>
+        </h1>
+        <p style={{ color: "#DDD6FE", fontSize: 16, maxWidth: 600 }}>
+          Cek ruang yang tersedia, ajukan peminjaman, cek statusnya. Semua
+          online, gak perlu catat di buku lagi! Cepat, rapi, dan memukau!
+        </p>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 22 }}>
+          <Link
+            href="/pinjam"
+            style={{
+              background: "linear-gradient(90deg,#F59E0B,#EC4899)",
+              color: "white",
+              padding: "13px 24px",
+              borderRadius: 999,
+              fontWeight: 900,
+              textDecoration: "none",
+              boxShadow: "0 8px 24px rgba(236,72,153,0.4)",
+            }}
           >
-            Documentation
-          </a>
+            📝 Pinjam Sekarang →
+          </Link>
+          <Link
+            href="/ruang"
+            style={{
+              background: "#120826",
+              color: "white",
+              padding: "13px 24px",
+              borderRadius: 999,
+              fontWeight: 800,
+              textDecoration: "none",
+              border: "1px solid #A78BFA",
+            }}
+          >
+            🏫 Lihat Ruang
+          </Link>
+          <Link
+            href="/cek"
+            style={{
+              background: "white",
+              color: "#4C1D95",
+              padding: "13px 24px",
+              borderRadius: 999,
+              fontWeight: 900,
+              textDecoration: "none",
+            }}
+          >
+            🔍 Cek Status
+          </Link>
         </div>
-      </main>
+      </div>
+
+      {/* STATISTIK KECIL BIAR KELIATAN JUARA DUNIA */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))",
+          gap: 12,
+          marginTop: 18,
+        }}
+      >
+        {[
+          ["🏫", `${list.length} Ruang`, "Siap Dipinjam"],
+          ["⚡", "Online 100%", "Tanpa Buku Catatan"],
+          ["🛡", "Aman", "RLS Supabase"],
+        ].map(([icon, judul, sub]) => (
+          <div
+            key={judul}
+            style={{
+              background: "#1E103A",
+              border: "1px solid #4C1D95",
+              borderRadius: 18,
+              padding: 16,
+              textAlign: "center",
+            }}
+          >
+            <div style={{ fontSize: 24 }}>{icon}</div>
+            <b style={{ color: "white" }}>{judul}</b>
+            <div style={{ color: "#C4B5FD", fontSize: 12 }}>{sub}</div>
+          </div>
+        ))}
+      </div>
+
+      <h2 style={{ marginTop: 28, color: "white" }}>
+        Ruang Tersedia ({list.length})
+      </h2>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))",
+          gap: 14,
+          marginTop: 12,
+        }}
+      >
+        {list.length === 0 ? (
+          <div
+            style={{
+              background: "#1E103A",
+              border: "1px solid #4C1D95",
+              borderRadius: 20,
+              padding: 24,
+              gridColumn: "1 / -1",
+              textAlign: "center",
+              color: "#C4B5FD",
+            }}
+          >
+            Belum ada ruang aktif. Cek Supabase kamu, udah di-RUN SQL-nya belum?
+          </div>
+        ) : (
+          list.map((r: any) => (
+            <Link
+              key={r.id}
+              href={`/ruang/${r.id}`}
+              style={{
+                textDecoration: "none",
+                color: "white",
+                background: "linear-gradient(135deg,#1E103A,#2E1065)",
+                border: "1px solid #4C1D95",
+                borderRadius: 22,
+                padding: 18,
+                display: "block",
+              }}
+            >
+              <span
+                style={{
+                  background:
+                    r.jenis === "lab"
+                      ? "#FBCFE8"
+                      : r.jenis === "kelas"
+                      ? "#BFDBFE"
+                      : "#FDE68A",
+                  color: "#120826",
+                  padding: "4px 10px",
+                  borderRadius: 999,
+                  fontSize: 12,
+                  fontWeight: 800,
+                }}
+              >
+                {r.jenis.toUpperCase()}
+              </span>
+              <b style={{ display: "block", fontSize: 19, marginTop: 10 }}>{r.nama}</b>
+              <div style={{ color: "#C4B5FD", fontSize: 13 }}>
+                📍 {r.lokasi} • 👥 Kapasitas {r.kapasitas} orang
+              </div>
+              <span
+                style={{
+                  display: "inline-block",
+                  marginTop: 12,
+                  background: "linear-gradient(90deg,#F59E0B,#EC4899)",
+                  padding: "8px 14px",
+                  borderRadius: 999,
+                  fontWeight: 900,
+                  fontSize: 13,
+                }}
+              >
+                Lihat Jadwal →
+              </span>
+            </Link>
+          ))
+        )}
+      </div>
     </div>
   );
 }
