@@ -1,4 +1,4 @@
-// app/ruang/page.tsx - Daftar Ruang - VERSI JUARA 1 DUNIA!
+// app/ruang/page.tsx - Daftar Ruang + GAMBAR UNSPLASH KAYAK EVENTKU! - VERSI JUARA 1 DUNIA!
 // Colorful, anti-white 100%, sangat modern, sangat memukau,
 // tata letak sangat rapi, kayak website yang pernah Juara 1 dunia!
 
@@ -30,10 +30,22 @@ export default async function DaftarRuang({
   const { data } = await q;
   const list = data || [];
 
+  // 👈 BARU! KAYAK EVENTKU! GAMBAR LANGSUNG DARI UNSPLASH! GAK PERLU DOWNLOAD!
+  const gambarRuang = (jenisR: string, nama: string) => {
+    const n = nama.toLowerCase();
+    if (n.includes("komputer")) return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop";
+    if (n.includes("ipa")) return "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop";
+    if (n.includes("bahasa")) return "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1200&auto=format&fit=crop";
+    if (jenisR === "lab") return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop";
+    if (jenisR === "kelas") return "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1200&auto=format&fit=crop";
+    if (jenisR === "aula") return "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1200&auto=format&fit=crop";
+    return "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1200&auto=format&fit=crop";
+  };
+
   const iconRuang = (jenisR: string, nama: string) => {
     if (nama.toLowerCase().includes("komputer")) return "💻";
     if (nama.toLowerCase().includes("ipa")) return "🧪";
-    if (nama.toLowerCase().includes("bahasa")) return "🗣️";
+    if (nama.toLowerCase().includes("bahasa")) return "🗣";
     if (jenisR === "lab") return "🔬";
     if (jenisR === "kelas") return "📚";
     if (jenisR === "aula") return "🎤";
@@ -55,22 +67,11 @@ export default async function DaftarRuang({
 
   return (
     <div>
-      {/* ============ 1. HERO ============ */}
-      <div
-        style={{
-          background: "linear-gradient(135deg,#120826,#2E1065,#6D28D9,#DB2777)",
-          borderRadius: 28,
-          padding: "32px 26px",
-          border: "1px solid rgba(255,255,255,0.25)",
-          boxShadow: "0 20px 60px rgba(109,40,217,0.4)",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div style={{ position: "absolute", top: -30, right: -20, width: 160, height: 160, background: "radial-gradient(circle,#FBBF24,transparent 70%)", opacity: 0.6, borderRadius: "50%", filter: "blur(10px)" }} />
-        <div style={{ position: "absolute", bottom: -40, left: -20, width: 180, height: 180, background: "radial-gradient(circle,#22D3EE,transparent 70%)", opacity: 0.5, borderRadius: "50%", filter: "blur(12px)" }} />
-        <div style={{ position: "relative" }}>
-          <span style={{ background: "white", color: "#6D28D9", fontSize: 11, fontWeight: 900, padding: "6px 12px", borderRadius: 999 }}>🏫 DAFTAR RUANG • {all.length} RUANG AKTIF</span>
+      {/* ============ 1. HERO + GAMBAR UNSPLASH! 👈 BARU! ============ */}
+      <div style={{ borderRadius: 28, overflow: "hidden", border: "1px solid rgba(255,255,255,0.25)", boxShadow: "0 20px 60px rgba(109,40,217,0.4)", position: "relative" }}>
+        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1600&auto=format&fit=crop" alt="Ruang PinjamLab" style={{ width: "100%", height: 300, objectFit: "cover", display: "block" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(18,8,38,0.2), rgba(18,8,38,0.92))", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "28px 26px" }}>
+          <span style={{ background: "white", color: "#6D28D9", fontSize: 11, fontWeight: 900, padding: "6px 12px", borderRadius: 999, width: "fit-content" }}>🏫 DAFTAR RUANG • {all.length} RUANG AKTIF</span>
           <h1 style={{ fontSize: 38, fontWeight: 900, lineHeight: 1.05, margin: "14px 0 0", color: "white" }}>
             Pilih Ruang,
             <br />
@@ -78,7 +79,7 @@ export default async function DaftarRuang({
               Sesuai Kebutuhanmu!
             </span>
           </h1>
-          <p style={{ color: "#DDD6FE", maxWidth: 640, lineHeight: 1.6 }}>
+          <p style={{ color: "#DDD6FE", maxWidth: 640, lineHeight: 1.6, margin: "10px 0 0" }}>
             Saring jenis di bawah, URL-nya berubah jadi <b style={{ color: "white" }}>/ruang?jenis=lab</b> — sesuai soal! Klik kartu-nya buat liat jadwal + pinjam langsung!
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 16 }}>
@@ -164,10 +165,17 @@ export default async function DaftarRuang({
         ) : (
           list.map((r: any) => (
             <div key={r.id} style={{ background: "linear-gradient(180deg,#2E1065,#1E103A)", border: "1px solid #4C1D95", borderRadius: 24, overflow: "hidden", boxShadow: "0 12px 30px rgba(0,0,0,0.25)" }}>
-              {/* HEADER KARTU */}
-              <div style={{ background: warnaJenis[r.jenis] || warnaJenis.kelas, padding: "16px 18px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: 34 }}>{iconRuang(r.jenis, r.nama)}</span>
-                <span style={{ background: "rgba(0,0,0,0.25)", color: "white", fontSize: 11, fontWeight: 900, padding: "5px 10px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.3)" }}>{r.jenis.toUpperCase()} • ✅ AKTIF</span>
+              {/* 👈 BARU! FOTO UNSPLASH DI ATAS KARTU! KAYAK EVENTKU! */}
+              <div style={{ position: "relative" }}>
+                <img src={gambarRuang(r.jenis, r.nama)} alt={r.nama} style={{ width: "100%", height: 170, objectFit: "cover", display: "block" }} />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(18,8,38,0.85))", display: "flex", justifyContent: "space-between", alignItems: "flex-end", padding: "12px 14px" }}>
+                  <span style={{ fontSize: 28, background: "rgba(0,0,0,0.45)", border: "1px solid rgba(255,255,255,0.4)", width: 48, height: 48, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    {iconRuang(r.jenis, r.nama)}
+                  </span>
+                  <span style={{ background: warnaJenis[r.jenis] || warnaJenis.kelas, color: "white", fontSize: 11, fontWeight: 900, padding: "6px 12px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.4)" }}>
+                    {r.jenis.toUpperCase()} • ✅ AKTIF
+                  </span>
+                </div>
               </div>
               <div style={{ padding: 18 }}>
                 <Link href={`/ruang/${r.id}`} style={{ textDecoration: "none", color: "white" }}>
@@ -197,11 +205,14 @@ export default async function DaftarRuang({
         )}
       </div>
 
-      {/* ============ 5. CTA BAWAH ============ */}
-      <div style={{ marginTop: 24, background: "linear-gradient(135deg,#F59E0B,#EC4899,#8B5CF6)", borderRadius: 24, padding: 24, textAlign: "center", border: "1px solid rgba(255,255,255,0.4)" }}>
-        <h3 style={{ color: "white", fontSize: 22, fontWeight: 900, margin: 0 }}>Udah Nemu Ruang Favoritmu? 🎯</h3>
-        <p style={{ color: "white", opacity: 0.9, fontSize: 13 }}>Langsung ajukan sekarang, jangan sampai keburu dipinjam orang lain!</p>
-        <Link href="/pinjam" style={{ display: "inline-block", marginTop: 10, background: "#120826", color: "white", padding: "12px 26px", borderRadius: 999, fontWeight: 900, textDecoration: "none" }}>📝 Pinjam Sekarang →</Link>
+      {/* ============ 5. CTA BAWAH + GAMBAR UNSPLASH! 👈 BARU! ============ */}
+      <div style={{ marginTop: 24, borderRadius: 24, overflow: "hidden", position: "relative", border: "1px solid rgba(255,255,255,0.4)" }}>
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop" alt="Pinjam Sekarang" style={{ width: "100%", height: 220, objectFit: "cover", display: "block" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(245,158,11,0.9), rgba(236,72,153,0.9), rgba(139,92,246,0.9))", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 24, textAlign: "center" }}>
+          <h3 style={{ color: "white", fontSize: 24, fontWeight: 900, margin: 0 }}>Udah Nemu Ruang Favoritmu? 🎯</h3>
+          <p style={{ color: "white", opacity: 0.95, fontSize: 13 }}>Langsung ajukan sekarang, jangan sampai keburu dipinjam orang lain!</p>
+          <Link href="/pinjam" style={{ display: "inline-block", marginTop: 10, background: "#120826", color: "white", padding: "12px 26px", borderRadius: 999, fontWeight: 900, textDecoration: "none" }}>📝 Pinjam Sekarang →</Link>
+        </div>
       </div>
     </div>
   );
