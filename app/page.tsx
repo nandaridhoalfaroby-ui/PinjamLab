@@ -55,7 +55,7 @@ export default async function Beranda() {
         <div style={{ position: "relative", display: "grid", gridTemplateColumns: "1.25fr 0.75fr", gap: 24, alignItems: "center" }}>
           <div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <span style={{ background: "white", color: "#6D28D9", fontSize: 11, fontWeight: 900, padding: "6px 12px", borderRadius: 999, letterSpacing: 0.5 }}>🏆 JUARA 1 • WEBSITE TERBAIK</span>
+              <span style={{ background: "white", color: "#6D28D9", fontSize: 11, fontWeight: 900, padding: "6px 12px", borderRadius: 999, letterSpacing: 0.5 }}>WEBSITE TERBAIK</span>
               <span style={{ background: "rgba(255,255,255,0.18)", color: "white", fontSize: 11, fontWeight: 800, padding: "6px 12px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.3)" }}>✨ ONLINE 100% • TANPA BUKU CATATAN</span>
             </div>
 
