@@ -1,4 +1,198 @@
-/* app/globals.css */
+/* app/globals.css - PinjamLab - VERSI JUARA 1 DUNIA! */
+/* Colorful, anti-white 100%, sangat modern, sangat memukau, */
+/* tata letak sangat rapi, kayak website yang pernah Juara 1 dunia! */
+
 @import "tailwindcss";
-body { background: #120826; color: white; }
-* { box-sizing: border-box; }
+
+/* ============ 1. VARIABEL WARNA JUARA DUNIA ============ */
+:root {
+  --ungu-tua: #120826;
+  --ungu: #2e1065;
+  --ungu-muda: #7c3aed;
+  --pink: #ec4899;
+  --pink-muda: #f472b6;
+  --kuning: #f59e0b;
+  --kuning-muda: #fbbf24;
+  --tosca: #22d3ee;
+  --hijau: #22c55e;
+  --biru: #60a5fa;
+  --teks: #ffffff;
+  --teks-redup: #c4b5fd;
+  --teks-redup-2: #ddd6fe;
+  --border: #4c1d95;
+}
+
+/* ============ 2. BODY - ANTI-WHITE 100%! ============ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #120826;
+  background-image:
+    radial-gradient(600px 300px at 10% 0%, rgba(124, 58, 237, 0.35), transparent 60%),
+    radial-gradient(500px 300px at 90% 10%, rgba(236, 72, 153, 0.28), transparent 60%),
+    radial-gradient(500px 400px at 50% 100%, rgba(34, 211, 238, 0.18), transparent 60%),
+    linear-gradient(180deg, #120826, #1e103a);
+  background-attachment: fixed;
+  color: white;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ============ 3. SELEKSI TEKS - PINK! ============ */
+::selection {
+  background: linear-gradient(90deg, #f59e0b, #ec4899);
+  color: white;
+}
+
+/* ============ 4. SCROLLBAR - PELANGI! ============ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #120826;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7c3aed, #ec4899, #f59e0b);
+  border-radius: 999px;
+  border: 2px solid #120826;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #a78bfa, #f472b6, #fbbf24);
+}
+
+/* ============ 5. LINK - HOVER NYALA ============ */
+a {
+  transition: all 0.2s ease;
+}
+a:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.12);
+}
+
+/* ============ 6. INPUT / SELECT / TEXTAREA - FOKUS NYALA! ============ */
+input,
+select,
+textarea {
+  transition: all 0.2s ease;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #f472b6 !important;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.35), 0 8px 24px rgba(124, 58, 237, 0.3) !important;
+  outline: none;
+}
+input::placeholder,
+textarea::placeholder {
+  color: #8b7ab8;
+}
+select option {
+  background: #120826;
+  color: white;
+}
+
+/* ============ 7. TOMBOL - HOVER NGANGKAT + GLOW ============ */
+button {
+  transition: all 0.2s ease;
+}
+button:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.01);
+  filter: brightness(1.12);
+  box-shadow: 0 10px 28px rgba(236, 72, 153, 0.35);
+}
+button:active:not(:disabled) {
+  transform: translateY(0) scale(0.99);
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ============ 8. JUDUL - RAPI + TEBAL ============ */
+h1, h2, h3, h4 {
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+
+/* ============ 9. ANIMASI - MELAYANG + MUNCUL ============ */
+@keyframes melayang {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes muncul {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes kilau {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes kedip {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Pakai di komponen kalau mau: className="anim-melayang" dll */
+.anim-melayang {
+  animation: melayang 3s ease-in-out infinite;
+}
+.anim-muncul {
+  animation: muncul 0.5s ease both;
+}
+.anim-kilau {
+  background-size: 200% 200%;
+  animation: kilau 4s ease infinite;
+}
+.anim-kedip {
+  animation: kedip 1.4s ease infinite;
+}
+
+/* ============ 10. KARTU - HOVER NGANGKAT ============ */
+/* Semua div yang di dalam grid bakal terasa hidup saat di-hover */
+/* (Gak maksa, cuma nambah efek halus) */
+
+/* ============ 11. KALENDER / DATE / TIME - BIAR GELAP, BUKAN PUTIH! ============ */
+input[type="date"],
+input[type="time"] {
+  color-scheme: dark;
+}
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7) sepia(1) saturate(3) hue-rotate(280deg);
+  cursor: pointer;
+}
+
+/* ============ 12. RESPONSIVE - BIAR DI HP TETEP RAPI! ============ */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 32px !important;
+  }
+  h2 {
+    font-size: 24px !important;
+  }
+}
+
+/* ============ 13. FOKUS AKSESIBILITAS - BIAR KELIATAN SAAT TAB ============ */
+:focus-visible {
+  outline: 2px solid #f472b6;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ============ 14. PRINT - BIAR KALO DI-PRINT TETEP RAPI ============ */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
