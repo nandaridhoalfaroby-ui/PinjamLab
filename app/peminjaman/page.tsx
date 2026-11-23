@@ -1,4 +1,4 @@
-// app/peminjaman/page.tsx - Jadwal Publik - VERSI JUARA 1 DUNIA!
+// app/peminjaman/page.tsx - Jadwal Publik + GAMBAR UNSPLASH KAYAK EVENTKU! - VERSI JUARA 1 DUNIA!
 // Colorful, anti-white 100%, sangat modern, sangat memukau,
 // tata letak sangat rapi, kayak website yang pernah Juara 1 dunia!
 
@@ -25,10 +25,23 @@ export default async function JadwalPublik() {
   }
   const tanggalList = Object.keys(perTanggal).sort();
 
+  // 👈 BARU! KAYAK EVENTKU! GAMBAR LANGSUNG DARI UNSPLASH! GAK PERLU DOWNLOAD!
+  // Karena lo udah pake ruang(nama,jenis), langsung pake p.ruang.nama!
+  const gambarRuang = (jenis: string, nama: string) => {
+    const n = (nama || "").toLowerCase();
+    if (n.includes("komputer")) return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop";
+    if (n.includes("ipa")) return "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop";
+    if (n.includes("bahasa")) return "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1200&auto=format&fit=crop";
+    if (jenis === "lab") return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop";
+    if (jenis === "kelas") return "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1200&auto=format&fit=crop";
+    if (jenis === "aula") return "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1200&auto=format&fit=crop";
+    return "https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1200&auto=format&fit=crop";
+  };
+
   const iconRuang = (jenis: string, nama: string) => {
     if (nama?.toLowerCase().includes("komputer")) return "💻";
     if (nama?.toLowerCase().includes("ipa")) return "🧪";
-    if (nama?.toLowerCase().includes("bahasa")) return "🗣️";
+    if (nama?.toLowerCase().includes("bahasa")) return "🗣";
     if (jenis === "lab") return "🔬";
     if (jenis === "kelas") return "📚";
     if (jenis === "aula") return "🎤";
@@ -48,22 +61,11 @@ export default async function JadwalPublik() {
 
   return (
     <div>
-      {/* ============ 1. HERO ============ */}
-      <div
-        style={{
-          background: "linear-gradient(135deg,#120826,#2E1065,#6D28D9,#DB2777,#F59E0B)",
-          borderRadius: 28,
-          padding: "32px 26px",
-          border: "1px solid rgba(255,255,255,0.25)",
-          boxShadow: "0 20px 60px rgba(109,40,217,0.4)",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div style={{ position: "absolute", top: -30, right: -20, width: 160, height: 160, background: "radial-gradient(circle,#FBBF24,transparent 70%)", opacity: 0.6, borderRadius: "50%", filter: "blur(10px)" }} />
-        <div style={{ position: "absolute", bottom: -40, left: -20, width: 180, height: 180, background: "radial-gradient(circle,#22D3EE,transparent 70%)", opacity: 0.5, borderRadius: "50%", filter: "blur(12px)" }} />
-        <div style={{ position: "relative" }}>
-          <span style={{ background: "white", color: "#6D28D9", fontSize: 11, fontWeight: 900, padding: "6px 12px", borderRadius: 999 }}>📅 JADWAL PUBLIK • HANYA YANG DISETUJUI</span>
+      {/* ============ 1. HERO + GAMBAR UNSPLASH! 👈 BARU! ============ */}
+      <div style={{ borderRadius: 28, overflow: "hidden", border: "1px solid rgba(255,255,255,0.25)", boxShadow: "0 20px 60px rgba(109,40,217,0.4)", position: "relative" }}>
+        <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1600&auto=format&fit=crop" alt="Jadwal PinjamLab" style={{ width: "100%", height: 300, objectFit: "cover", display: "block" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(18,8,38,0.2), rgba(18,8,38,0.92))", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "28px 26px" }}>
+          <span style={{ background: "white", color: "#6D28D9", fontSize: 11, fontWeight: 900, padding: "6px 12px", borderRadius: 999, width: "fit-content" }}>📅 JADWAL PUBLIK • HANYA YANG DISETUJUI</span>
           <h1 style={{ fontSize: 38, fontWeight: 900, lineHeight: 1.05, margin: "14px 0 0", color: "white" }}>
             Jadwal Peminjaman,
             <br />
@@ -71,7 +73,7 @@ export default async function JadwalPublik() {
               Biar Gak Bentrok!
             </span>
           </h1>
-          <p style={{ color: "#DDD6FE", maxWidth: 640, lineHeight: 1.6 }}>
+          <p style={{ color: "#DDD6FE", maxWidth: 640, lineHeight: 1.6, margin: "10px 0 0" }}>
             Hanya yang sudah <b style={{ color: "white" }}>DISETUJUI</b> yang ditampilkan di sini! Nama peminjam <b style={{ color: "white" }}>DISEMBUNYIKAN</b> biar privasi aman, sesuai soal! Cek dulu sebelum pinjam, biar gak bentrok!
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 16 }}>
@@ -87,7 +89,7 @@ export default async function JadwalPublik() {
           ["📅", `${list.length} Jadwal`, "Sudah Disetujui", "linear-gradient(135deg,#10B981,#22D3EE)"],
           ["🏫", `${totalRuang} Ruang`, "Dipakai", "linear-gradient(135deg,#8B5CF6,#EC4899)"],
           ["👥", `${totalOrang} Orang`, "Total Peserta", "linear-gradient(135deg,#F59E0B,#EF4444)"],
-          ["🛡️", "Privasi Aman", "Nama Disembunyikan", "linear-gradient(135deg,#3B82F6,#8B5CF6)"],
+          ["🛡", "Privasi Aman", "Nama Disembunyikan", "linear-gradient(135deg,#3B82F6,#8B5CF6)"],
         ].map(([icon, judul, sub, bg]) => (
           <div key={judul} style={{ background: bg, borderRadius: 20, padding: 16, color: "white" }}>
             <div style={{ fontSize: 24 }}>{icon}</div>
@@ -132,9 +134,15 @@ export default async function JadwalPublik() {
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: 12 }}>
                   {items.map((p: any) => (
                     <div key={p.id} style={{ background: "linear-gradient(180deg,#2E1065,#1E103A)", border: "1px solid #4C1D95", borderRadius: 22, overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.25)" }}>
-                      <div style={{ background: warnaJenis[p.ruang?.jenis] || warnaJenis.kelas, padding: "14px 16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontSize: 28 }}>{iconRuang(p.ruang?.jenis, p.ruang?.nama || "")}</span>
-                        <span style={{ background: "rgba(0,0,0,0.25)", color: "white", fontSize: 11, fontWeight: 900, padding: "4px 10px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.3)" }}>{p.ruang?.jenis?.toUpperCase() || "RUANG"}</span>
+                      {/* 👈 BARU! FOTO UNSPLASH DI ATAS KARTU JADWAL! GANTI HEADER GRADASI! */}
+                      <div style={{ position: "relative" }}>
+                        <img src={gambarRuang(p.ruang?.jenis, p.ruang?.nama || "")} alt={p.ruang?.nama || "Ruang"} style={{ width: "100%", height: 150, objectFit: "cover", display: "block" }} />
+                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(18,8,38,0.85))", display: "flex", justifyContent: "space-between", alignItems: "flex-end", padding: "12px 14px" }}>
+                          <span style={{ fontSize: 26, background: "rgba(0,0,0,0.45)", border: "1px solid rgba(255,255,255,0.4)", width: 46, height: 46, borderRadius: 13, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            {iconRuang(p.ruang?.jenis, p.ruang?.nama || "")}
+                          </span>
+                          <span style={{ background: warnaJenis[p.ruang?.jenis] || warnaJenis.kelas, color: "white", fontSize: 11, fontWeight: 900, padding: "5px 10px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.3)" }}>{p.ruang?.jenis?.toUpperCase() || "RUANG"}</span>
+                        </div>
                       </div>
                       <div style={{ padding: 16 }}>
                         <b style={{ color: "white", fontSize: 17, display: "block" }}>{p.ruang?.nama}</b>
@@ -159,13 +167,16 @@ export default async function JadwalPublik() {
         )}
       </div>
 
-      {/* ============ 4. CTA BAWAH ============ */}
-      <div style={{ marginTop: 8, background: "linear-gradient(135deg,#F59E0B,#EC4899,#8B5CF6)", borderRadius: 24, padding: 24, textAlign: "center", border: "1px solid rgba(255,255,255,0.4)" }}>
-        <h3 style={{ color: "white", fontSize: 22, fontWeight: 900, margin: 0 }}>Lihat Jam Kosong? Langsung Sikat! 🚀</h3>
-        <p style={{ color: "white", opacity: 0.9, fontSize: 13 }}>Jangan sampai jam kosong itu keburu diambil orang lain!</p>
-        <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 12 }}>
-          <Link href="/pinjam" style={{ background: "#120826", color: "white", padding: "12px 26px", borderRadius: 999, fontWeight: 900, textDecoration: "none" }}>📝 Pinjam Sekarang →</Link>
-          <Link href="/ruang" style={{ background: "white", color: "#DB2777", padding: "12px 22px", borderRadius: 999, fontWeight: 900, textDecoration: "none" }}>🏫 Lihat Ruang</Link>
+      {/* ============ 4. CTA BAWAH + GAMBAR UNSPLASH! 👈 BARU! ============ */}
+      <div style={{ marginTop: 8, borderRadius: 24, overflow: "hidden", position: "relative", border: "1px solid rgba(255,255,255,0.4)" }}>
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1600&auto=format&fit=crop" alt="Pinjam Sekarang" style={{ width: "100%", height: 200, objectFit: "cover", display: "block" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(245,158,11,0.92), rgba(236,72,153,0.92), rgba(139,92,246,0.92))", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 24, textAlign: "center" }}>
+          <h3 style={{ color: "white", fontSize: 22, fontWeight: 900, margin: 0 }}>Lihat Jam Kosong? Langsung Sikat! 🚀</h3>
+          <p style={{ color: "white", opacity: 0.9, fontSize: 13 }}>Jangan sampai jam kosong itu keburu diambil orang lain!</p>
+          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 12 }}>
+            <Link href="/pinjam" style={{ background: "#120826", color: "white", padding: "12px 26px", borderRadius: 999, fontWeight: 900, textDecoration: "none" }}>📝 Pinjam Sekarang →</Link>
+            <Link href="/ruang" style={{ background: "white", color: "#DB2777", padding: "12px 22px", borderRadius: 999, fontWeight: 900, textDecoration: "none" }}>🏫 Lihat Ruang</Link>
+          </div>
         </div>
       </div>
     </div>
