@@ -4,6 +4,7 @@
 
 import "./globals.css";
 import Link from "next/link";
+import SplashScreen from "./SplashScreen"; // 👈 BARU! Buat splash screen!
 
 export const metadata = {
   title: "PinjamLab - Pinjam Ruang & Lab Tanpa Ribet!",
@@ -43,6 +44,9 @@ export default function RootLayout({
           minHeight: "100vh",
         }}
       >
+        {/* 👈 BARU! SPLASH SCREEN - Muncul 2.2 detik pas pertama buka! */}
+        <SplashScreen />
+
         {/* ============ 1. BAR PENGUMUMAN ATAS - PALING ATAS! ============ */}
         <div
           style={{
@@ -251,7 +255,7 @@ export default function RootLayout({
                 Aplikasi Peminjaman Ruang & Laboratorium. Pinjam dalam 30 detik, cek status online, tanpa buku catatan lagi!
               </p>
               <div style={{ display: "flex", gap: 8 }}>
-                {["📸", "🎵", "▶️", "💬"].map((e, i) => (
+                {["📸", "🎵", "▶", "💬"].map((e, i) => (
                   <span key={i} style={{ width: 36, height: 36, borderRadius: 999, background: "#2E1065", border: "1px solid #7C3AED", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, cursor: "pointer" }}>{e}</span>
                 ))}
               </div>
@@ -289,7 +293,7 @@ export default function RootLayout({
                 <li>📅 Maks 60 hari ke depan</li>
                 <li>🚫 Bukan Sabtu / Minggu</li>
                 <li>👥 Gak boleh melebihi kapasitas</li>
-                <li>⚠️ Gak boleh bentrok yang disetujui</li>
+                <li>⚠ Gak boleh bentrok yang disetujui</li>
               </ul>
               <Link href="/pinjam" style={{ display: "block", textAlign: "center", marginTop: 12, background: "linear-gradient(90deg,#F59E0B,#EC4899)", color: "white", padding: "10px", borderRadius: 999, fontWeight: 900, textDecoration: "none", fontSize: 13 }}>
                 Pinjam Sekarang →
