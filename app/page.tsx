@@ -1,9 +1,10 @@
-// app/page.tsx - Beranda PinjamLab - VERSI JUARA 1 DUNIA!
+// app/page.tsx - Beranda PinjamLab - VERSI JUARA 1 DUNIA + CAROUSEL OTOMATIS!
 // Colorful, anti-white 100%, sangat modern, sangat memukau,
 // tata letak sangat rapi, kayak website yang pernah Juara 1 dunia!
 
 import { supabasePublik } from "@/lib/supabase";
 import Link from "next/link";
+import RuangCarousel from "./RuangCarousel"; // 👈 BARU! WAJIB!
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,7 @@ export default async function Beranda() {
   const iconRuang = (jenis: string, nama: string) => {
     if (nama.toLowerCase().includes("komputer")) return "💻";
     if (nama.toLowerCase().includes("ipa")) return "🧪";
-    if (nama.toLowerCase().includes("bahasa")) return "🗣️";
+    if (nama.toLowerCase().includes("bahasa")) return "🗣";
     if (jenis === "lab") return "🔬";
     if (jenis === "kelas") return "📚";
     if (jenis === "aula") return "🎤";
@@ -47,7 +48,6 @@ export default async function Beranda() {
           boxShadow: "0 30px 80px rgba(109,40,217,0.5)",
         }}
       >
-        {/* BLOB MELAYANG BIAR HIDUP */}
         <div style={{ position: "absolute", top: -40, right: -20, width: 180, height: 180, background: "radial-gradient(circle,#FBBF24,transparent 70%)", opacity: 0.7, borderRadius: "50%", filter: "blur(10px)" }} />
         <div style={{ position: "absolute", bottom: -60, left: -30, width: 220, height: 220, background: "radial-gradient(circle,#22D3EE,transparent 70%)", opacity: 0.6, borderRadius: "50%", filter: "blur(12px)" }} />
         <div style={{ position: "absolute", top: 20, left: "45%", width: 90, height: 90, background: "radial-gradient(circle,#F472B6,transparent 70%)", opacity: 0.8, borderRadius: "50%", filter: "blur(8px)" }} />
@@ -90,11 +90,10 @@ export default async function Beranda() {
               <span>•</span>
               <span>⚡ Disetujui &lt; 5 menit</span>
               <span>•</span>
-              <span>🛡️ Aman • RLS Supabase</span>
+              <span>🛡 Aman • RLS Supabase</span>
             </div>
           </div>
 
-          {/* KARTU KACA MELAYANG - BIKIN KELIATAN MAHAL */}
           <div style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.35)", borderRadius: 24, padding: 18, backdropFilter: "blur(14px)", boxShadow: "0 20px 50px rgba(0,0,0,0.25)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <b style={{ color: "white" }}>📅 Jadwal Hari Ini</b>
@@ -125,7 +124,7 @@ export default async function Beranda() {
 
       {/* ============ 2. MARQUEE / JALAN ============ */}
       <div style={{ marginTop: 14, background: "linear-gradient(90deg,#F59E0B,#EC4899,#8B5CF6,#22D3EE)", borderRadius: 999, padding: "10px 18px", overflow: "hidden", whiteSpace: "nowrap", fontWeight: 900, color: "white", fontSize: 13, textAlign: "center" }}>
-        💻 LAB KOMPUTER &nbsp;•&nbsp; 🧪 LAB IPA &nbsp;•&nbsp; 📚 KELAS &nbsp;•&nbsp; 🎤 AULA &nbsp;•&nbsp; 🗣️ LAB BAHASA &nbsp;•&nbsp; PINJAM DALAM 30 DETIK &nbsp;•&nbsp; CEK STATUS ONLINE &nbsp;•&nbsp;
+        💻 LAB KOMPUTER &nbsp;•&nbsp; 🧪 LAB IPA &nbsp;•&nbsp; 📚 KELAS &nbsp;•&nbsp; 🎤 AULA &nbsp;•&nbsp; 🗣 LAB BAHASA &nbsp;•&nbsp; PINJAM DALAM 30 DETIK &nbsp;•&nbsp; CEK STATUS ONLINE &nbsp;•&nbsp;
       </div>
 
       {/* ============ 3. STATISTIK WARNA-WARNI ============ */}
@@ -134,7 +133,7 @@ export default async function Beranda() {
           ["🏫", `${list.length} Ruang`, "Siap Dipinjam", "linear-gradient(135deg,#7C3AED,#EC4899)"],
           ["⚡", "30 Detik", "Ajukan Peminjaman", "linear-gradient(135deg,#F59E0B,#EF4444)"],
           ["✅", "100% Online", "Tanpa Buku Catatan", "linear-gradient(135deg,#10B981,#22D3EE)"],
-          ["🛡️", "Aman", "RLS Supabase", "linear-gradient(135deg,#3B82F6,#8B5CF6)"],
+          ["🛡", "Aman", "RLS Supabase", "linear-gradient(135deg,#3B82F6,#8B5CF6)"],
         ].map(([icon, judul, sub, bg]) => (
           <div key={judul} style={{ background: bg, borderRadius: 20, padding: 18, color: "white", boxShadow: "0 12px 30px rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.25)" }}>
             <div style={{ fontSize: 26 }}>{icon}</div>
@@ -153,7 +152,7 @@ export default async function Beranda() {
           {[
             ["🚀", "Super Cepat", "Ajukan dalam 30 detik. Gak perlu antre, gak perlu nunggu TU buka!", "#F59E0B"],
             ["🎨", "Colorful & Anti-White", "Gak ada lagi website putih pucat membosankan! Semua gradasi ungu-pink-kuning!", "#EC4899"],
-            ["🛡️", "Aman & Validasi Ketat", "Tanggal, jam, kapasitas, bentrok — semua dicek otomatis. Gak bisa curang!", "#22D3EE"],
+            ["🛡", "Aman & Validasi Ketat", "Tanggal, jam, kapasitas, bentrok — semua dicek otomatis. Gak bisa curang!", "#22D3EE"],
             ["📱", "Nyaman di HP", "Tata letak rapi, tombol gede, teks jelas. Dipake di HP juga enak banget!", "#A78BFA"],
           ].map(([icon, judul, desc, warna]) => (
             <div key={judul} style={{ background: "#1E103A", border: "1px solid #4C1D95", borderRadius: 22, padding: 20 }}>
@@ -188,53 +187,9 @@ export default async function Beranda() {
         </div>
       </div>
 
-      {/* ============ 6. DAFTAR RUANG - KARTU PALING MEMUKAU ============ */}
+      {/* ============ 6. DAFTAR RUANG - CAROUSEL GESER OTOMATIS! 👈 INI YANG DIGANTI! ============ */}
       <div style={{ marginTop: 30 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 10 }}>
-          <div>
-            <span style={{ background: "linear-gradient(90deg,#22D3EE,#10B981)", color: "white", fontSize: 11, fontWeight: 900, padding: "6px 12px", borderRadius: 999 }}>🏫 RUANG TERSEDIA</span>
-            <h2 style={{ color: "white", fontSize: 30, fontWeight: 900, margin: "10px 0 0" }}>Pilih Ruang Favoritmu! ({list.length})</h2>
-            <p style={{ color: "#C4B5FD", margin: "6px 0 0" }}>Klik kartu-nya buat liat jadwal + pinjam langsung!</p>
-          </div>
-          <Link href="/ruang" style={{ background: "#1E103A", border: "1px solid #7C3AED", color: "white", padding: "10px 18px", borderRadius: 999, fontWeight: 800, textDecoration: "none", fontSize: 13 }}>Semua Ruang →</Link>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: 14, marginTop: 16 }}>
-          {list.length === 0 ? (
-            <div style={{ background: "#1E103A", border: "1px solid #4C1D95", borderRadius: 22, padding: 28, gridColumn: "1 / -1", textAlign: "center" }}>
-              <div style={{ fontSize: 40 }}>😢</div>
-              <b style={{ color: "white" }}>Belum ada ruang aktif</b>
-              <p style={{ color: "#C4B5FD", fontSize: 13 }}>Cek Supabase kamu, udah di-RUN SQL-nya belum? Harusnya ada 6 ruang!</p>
-              <Link href="/admin/ruang" style={{ display: "inline-block", marginTop: 10, background: "linear-gradient(90deg,#F59E0B,#EC4899)", color: "white", padding: "10px 18px", borderRadius: 999, fontWeight: 900, textDecoration: "none", fontSize: 13 }}>Tambah Ruang di Admin →</Link>
-            </div>
-          ) : (
-            list.map((r: any) => (
-              <Link key={r.id} href={`/ruang/${r.id}`} style={{ textDecoration: "none", color: "white", background: "linear-gradient(180deg,#2E1065,#1E103A)", border: "1px solid #4C1D95", borderRadius: 24, overflow: "hidden", display: "block", boxShadow: "0 12px 30px rgba(0,0,0,0.25)" }}>
-                {/* HEADER KARTU GRADASI */}
-                <div style={{ background: warnaJenis[r.jenis] || warnaJenis.kelas, padding: "16px 18px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: 34 }}>{iconRuang(r.jenis, r.nama)}</span>
-                  <span style={{ background: "rgba(0,0,0,0.25)", color: "white", fontSize: 11, fontWeight: 900, padding: "5px 10px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.3)" }}>{r.jenis.toUpperCase()} • ✅ AKTIF</span>
-                </div>
-                <div style={{ padding: 18 }}>
-                  <b style={{ fontSize: 20, display: "block", lineHeight: 1.2 }}>{r.nama}</b>
-                  <div style={{ color: "#C4B5FD", fontSize: 13, marginTop: 6, lineHeight: 1.6 }}>
-                    📍 {r.lokasi}
-                    <br />
-                    👥 Kapasitas <b style={{ color: "white" }}>{r.kapasitas} orang</b> • 🕐 07:00 - 17:00
-                  </div>
-                  <div style={{ display: "flex", gap: 6, marginTop: 12, flexWrap: "wrap" }}>
-                    <span style={{ background: "#120826", border: "1px solid #7C3AED", color: "#DDD6FE", fontSize: 11, fontWeight: 800, padding: "4px 10px", borderRadius: 999 }}>Maks 3 Jam</span>
-                    <span style={{ background: "#120826", border: "1px solid #7C3AED", color: "#DDD6FE", fontSize: 11, fontWeight: 800, padding: "4px 10px", borderRadius: 999 }}>Maks 60 Hari</span>
-                    <span style={{ background: "#120826", border: "1px solid #7C3AED", color: "#DDD6FE", fontSize: 11, fontWeight: 800, padding: "4px 10px", borderRadius: 999 }}>Bukan Sabtu/Minggu</span>
-                  </div>
-                  <span style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 14, background: "linear-gradient(90deg,#F59E0B,#EC4899)", padding: "11px 14px", borderRadius: 999, fontWeight: 900, fontSize: 13 }}>
-                    Lihat Jadwal & Pinjam <span>→</span>
-                  </span>
-                </div>
-              </Link>
-            ))
-          )}
-        </div>
+        <RuangCarousel list={list} />
       </div>
 
       {/* ============ 7. TESTIMONI ============ */}
