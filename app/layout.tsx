@@ -1,10 +1,12 @@
 // app/layout.tsx - Layout PinjamLab - VERSI JUARA 1 DUNIA!
 // Colorful, anti-white 100%, sangat modern, sangat memukau,
 // tata letak sangat rapi, kayak website yang pernah Juara 1 dunia!
+// STYLE SAMA PERSIS KAYAK ASLI! Gelap + kaca + gradasi! Cuma nav-nya sekarang BISA NYALA!
 
 import "./globals.css";
 import Link from "next/link";
 import SplashScreen from "./SplashScreen"; // 👈 BARU! Buat splash screen!
+import NavLink from "./NavLink"; // 👈 WAJIB ADA! Kalau file ini gak ada, layout.tsx PASTI ERROR!
 
 export const metadata = {
   title: "PinjamLab - Pinjam Ruang & Lab Tanpa Ribet!",
@@ -16,22 +18,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const navStyle: any = {
-    background: "rgba(18,8,38,0.85)",
-    color: "white",
-    padding: "9px 14px",
-    borderRadius: 999,
-    fontWeight: 800,
-    fontSize: 13,
-    textDecoration: "none",
-    border: "1px solid rgba(255,255,255,0.18)",
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-    whiteSpace: "nowrap",
-    backdropFilter: "blur(10px)",
-  };
-
   return (
     <html lang="id">
       <body
@@ -60,7 +46,7 @@ export default function RootLayout({
           }}
         >
           🎉 PINJAMLAB SUDAH ONLINE! &nbsp;•&nbsp; Pinjam Ruang Dalam 30 Detik! &nbsp;•&nbsp; Jam 07:00 - 17:00 • Maks 3 Jam • Bukan Sabtu / Minggu &nbsp;•&nbsp;{" "}
-          <Link href="/pinjam" style={{ color: "white", textDecoration: "underline", fontWeight: 900 }}>
+          <Link href="/pinjam" prefetch={true} style={{ color: "white", textDecoration: "underline", fontWeight: 900 }}>
             Pinjam Sekarang →
           </Link>
         </div>
@@ -91,6 +77,7 @@ export default function RootLayout({
             {/* LOGO 3D */}
             <Link
               href="/"
+              prefetch={true}
               style={{
                 color: "white",
                 textDecoration: "none",
@@ -120,7 +107,7 @@ export default function RootLayout({
                   Pinjam<span style={{ background: "linear-gradient(90deg,#FBBF24,#F472B6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Lab</span>
                 </b>
                 <span style={{ fontSize: 10, color: "#DDD6FE", fontWeight: 700, letterSpacing: 1.2 }}>
-                  PINJAM RUANG & LAB 
+                  PINJAM RUANG & LAB
                 </span>
               </span>
               <span
@@ -138,14 +125,15 @@ export default function RootLayout({
               </span>
             </Link>
 
-            {/* NAVIGASI */}
+            {/* NAVIGASI - CUMA INI YANG GUE UBAH! DARI <Link> JADI <NavLink>! */}
             <nav style={{ display: "flex", gap: 7, flexWrap: "wrap", alignItems: "center" }}>
-              <Link href="/" style={navStyle}>🏠 Beranda</Link>
-              <Link href="/ruang" style={navStyle}>🏫 Ruang</Link>
-              <Link href="/peminjaman" style={navStyle}>📅 Jadwal</Link>
-              <Link href="/cek" style={navStyle}>🔍 Cek Status</Link>
+              <NavLink href="/">🏠 Beranda</NavLink>
+              <NavLink href="/ruang">🏫 Ruang</NavLink>
+              <NavLink href="/peminjaman">📅 Jadwal</NavLink>
+              <NavLink href="/cek">🔍 Cek Status</NavLink>
               <Link
                 href="/pinjam"
+                prefetch={true}
                 style={{
                   background: "linear-gradient(90deg,#F59E0B,#EC4899)",
                   color: "white",
@@ -163,6 +151,7 @@ export default function RootLayout({
               </Link>
               <Link
                 href="/admin"
+                prefetch={true}
                 style={{
                   background: "white",
                   color: "#4C1D95",
@@ -201,13 +190,13 @@ export default function RootLayout({
               }}
             >
               <span style={{ fontWeight: 800, color: "white" }}>⚡ Cepat:</span>
-              <Link href="/ruang?jenis=lab" style={{ color: "#FBCFE8", textDecoration: "none", fontWeight: 700 }}>🔬 Lab</Link>
+              <Link href="/ruang?jenis=lab" prefetch={true} style={{ color: "#FBCFE8", textDecoration: "none", fontWeight: 700 }}>🔬 Lab</Link>
               <span>•</span>
-              <Link href="/ruang?jenis=kelas" style={{ color: "#BFDBFE", textDecoration: "none", fontWeight: 700 }}>📚 Kelas</Link>
+              <Link href="/ruang?jenis=kelas" prefetch={true} style={{ color: "#BFDBFE", textDecoration: "none", fontWeight: 700 }}>📚 Kelas</Link>
               <span>•</span>
-              <Link href="/ruang?jenis=aula" style={{ color: "#FDE68A", textDecoration: "none", fontWeight: 700 }}>🎤 Aula</Link>
+              <Link href="/ruang?jenis=aula" prefetch={true} style={{ color: "#FDE68A", textDecoration: "none", fontWeight: 700 }}>🎤 Aula</Link>
               <span>•</span>
-              <Link href="/peminjaman" style={{ color: "white", textDecoration: "none", fontWeight: 700 }}>📅 Jadwal Disetujui</Link>
+              <Link href="/peminjaman" prefetch={true} style={{ color: "white", textDecoration: "none", fontWeight: 700 }}>📅 Jadwal Disetujui</Link>
               <span style={{ marginLeft: "auto", background: "rgba(255,255,255,0.15)", padding: "4px 10px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.2)", fontWeight: 700, color: "white" }}>
                 🕐 Jam Pinjam: 07:00 - 17:00 • Maks 3 Jam
               </span>
@@ -265,11 +254,11 @@ export default function RootLayout({
             <div>
               <b style={{ color: "white", fontSize: 14 }}>⚡ MENU CEPAT</b>
               <div style={{ display: "grid", gap: 8, marginTop: 12, fontSize: 13 }}>
-                <Link href="/" style={{ color: "#C4B5FD", textDecoration: "none" }}>🏠 Beranda</Link>
-                <Link href="/ruang" style={{ color: "#C4B5FD", textDecoration: "none" }}>🏫 Daftar Ruang</Link>
-                <Link href="/pinjam" style={{ color: "#C4B5FD", textDecoration: "none" }}>📝 Ajukan Peminjaman</Link>
-                <Link href="/peminjaman" style={{ color: "#C4B5FD", textDecoration: "none" }}>📅 Jadwal Publik</Link>
-                <Link href="/cek" style={{ color: "#C4B5FD", textDecoration: "none" }}>🔍 Cek Status</Link>
+                <Link href="/" prefetch={true} style={{ color: "#C4B5FD", textDecoration: "none" }}>🏠 Beranda</Link>
+                <Link href="/ruang" prefetch={true} style={{ color: "#C4B5FD", textDecoration: "none" }}>🏫 Daftar Ruang</Link>
+                <Link href="/pinjam" prefetch={true} style={{ color: "#C4B5FD", textDecoration: "none" }}>📝 Ajukan Peminjaman</Link>
+                <Link href="/peminjaman" prefetch={true} style={{ color: "#C4B5FD", textDecoration: "none" }}>📅 Jadwal Publik</Link>
+                <Link href="/cek" prefetch={true} style={{ color: "#C4B5FD", textDecoration: "none" }}>🔍 Cek Status</Link>
               </div>
             </div>
 
@@ -277,10 +266,10 @@ export default function RootLayout({
             <div>
               <b style={{ color: "white", fontSize: 14 }}>🏫 RUANG</b>
               <div style={{ display: "grid", gap: 8, marginTop: 12, fontSize: 13 }}>
-                <Link href="/ruang?jenis=lab" style={{ color: "#C4B5FD", textDecoration: "none" }}>🔬 Lab Komputer & IPA</Link>
-                <Link href="/ruang?jenis=kelas" style={{ color: "#C4B5FD", textDecoration: "none" }}>📚 Kelas</Link>
-                <Link href="/ruang?jenis=aula" style={{ color: "#C4B5FD", textDecoration: "none" }}>🎤 Aula Utama</Link>
-                <Link href="/admin/ruang" style={{ color: "#C4B5FD", textDecoration: "none" }}>🎛 Kelola Ruang (Admin)</Link>
+                <Link href="/ruang?jenis=lab" prefetch={true} style={{ color: "#C4B5FD", textDecoration: "none" }}>🔬 Lab Komputer & IPA</Link>
+                <Link href="/ruang?jenis=kelas" prefetch={true} style={{ color: "#C4B5FD", textDecoration: "none" }}>📚 Kelas</Link>
+                <Link href="/ruang?jenis=aula" prefetch={true} style={{ color: "#C4B5FD", textDecoration: "none" }}>🎤 Aula Utama</Link>
+                <Link href="/admin/ruang" prefetch={true} style={{ color: "#C4B5FD", textDecoration: "none" }}>🎛 Kelola Ruang (Admin)</Link>
               </div>
             </div>
 
@@ -295,7 +284,7 @@ export default function RootLayout({
                 <li>👥 Gak boleh melebihi kapasitas</li>
                 <li>⚠ Gak boleh bentrok yang disetujui</li>
               </ul>
-              <Link href="/pinjam" style={{ display: "block", textAlign: "center", marginTop: 12, background: "linear-gradient(90deg,#F59E0B,#EC4899)", color: "white", padding: "10px", borderRadius: 999, fontWeight: 900, textDecoration: "none", fontSize: 13 }}>
+              <Link href="/pinjam" prefetch={true} style={{ display: "block", textAlign: "center", marginTop: 12, background: "linear-gradient(90deg,#F59E0B,#EC4899)", color: "white", padding: "10px", borderRadius: 999, fontWeight: 900, textDecoration: "none", fontSize: 13 }}>
                 Pinjam Sekarang →
               </Link>
             </div>
@@ -306,9 +295,9 @@ export default function RootLayout({
             <div style={{ maxWidth: 1180, margin: "0 auto", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8, alignItems: "center", fontSize: 12, color: "#A78BFA" }}>
               <span>© 2026 <b style={{ color: "white" }}>PinjamLab</b> • Pinjam Ruang & Lab • Dibuat untuk Final Project Junior Web Developer 🏆</span>
               <span style={{ display: "flex", gap: 10 }}>
-                <Link href="/login" style={{ color: "white", textDecoration: "none", fontWeight: 700 }}>🔑 Login Admin</Link>
+                <Link href="/login" prefetch={true} style={{ color: "white", textDecoration: "none", fontWeight: 700 }}>🔑 Login Admin</Link>
                 <span>•</span>
-                <Link href="/admin" style={{ color: "white", textDecoration: "none", fontWeight: 700 }}>🎛 Dashboard</Link>
+                <Link href="/admin" prefetch={true} style={{ color: "white", textDecoration: "none", fontWeight: 700 }}>🎛 Dashboard</Link>
                 <span>•</span>
                 <span>💜 Dibuat dengan Next.js + Supabase</span>
               </span>
