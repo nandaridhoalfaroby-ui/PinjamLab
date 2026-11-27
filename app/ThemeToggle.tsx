@@ -1,58 +1,34 @@
-// app/ThemeToggle.tsx - Tombol Gelap / Terang PRO!
-// Kesimpen di localStorage! Buka lagi besok tetep inget!
+// app/ThemeToggle.tsx - Tombol 3 MODE!
+// Default = tetap! Terang = Background PUTIH, Card BIRU!
+// Gelap = Background HITAM, Card HIJAU TUA!
 
 "use client";
-
 import { useEffect, useState } from "react";
 
+type Mode = "default" | "terang" | "gelap";
+
+const MODE_BERIKUTNYA: Record<Mode, Mode> = { default: "terang", terang: "gelap", gelap: "default" };
+const LABEL: Record<Mode, string> = { default: "🎨 Default", terang: "☀️ Terang", gelap: "🌙 Gelap" };
+
 export default function ThemeToggle() {
-  const [tema, setTema] = useState<"gelap" | "terang">("gelap");
-  const [udahSiap, setUdahSiap] = useState(false);
-
+  const [mode, setMode] = useState<Mode>("default");
   useEffect(() => {
-    // 👈 Baca tema yang kesimpen! Kalau belum ada, pake gelap (default PinjamLab)!
-    const simpan = localStorage.getItem("pinjamlab-tema");
-    const awal = simpan === "terang" ? "terang" : "gelap";
-    setTema(awal);
-    document.documentElement.dataset.tema = awal;
-    setUdahSiap(true);
+    const simpan = localStorage.getItem("pinjamlab-tema") as Mode | null;
+    if (simpan === "terang" || simpan === "gelap" || simpan === "default") { setMode(simpan); document.documentElement.dataset.tema = simpan; }
+    else document.documentElement.dataset.tema = "default";
   }, []);
-
   const ganti = () => {
-    const baru = tema === "gelap" ? "terang" : "gelap";
-    setTema(baru);
-    document.documentElement.dataset.tema = baru;
-    localStorage.setItem("pinjamlab-tema", baru);
+    const baru = MODE_BERIKUTNYA[mode];
+    setMode(baru); document.documentElement.dataset.tema = baru; localStorage.setItem("pinjamlab-tema", baru);
   };
-
   return (
-    <button
-      onClick={ganti}
-      aria-label={tema === "gelap" ? "Ganti ke mode terang" : "Ganti ke mode gelap"}
-      title={tema === "gelap" ? "☀️ Ganti ke Terang" : "🌙 Ganti ke Gelap"}
-      style={{
-        width: 46,
-        height: 46,
-        borderRadius: 999,
-        border: "1px solid rgba(255,255,255,0.5)",
-        background: tema === "gelap"
-          ? "linear-gradient(135deg,#FBBF24,#F472B6)"
-          : "linear-gradient(135deg,#312E81,#7C3AED)",
-        color: "white",
-        fontSize: 20,
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        boxShadow: "0 8px 22px rgba(0,0,0,0.3)",
-        transition: "transform 0.2s, background 0.3s",
-        flexShrink: 0,
-      }}
-      onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1) rotate(12deg)")}
-      onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1) rotate(0deg)")}
-    >
-      {/* 👈 Kalau belum siap, tampilkan bulan dulu biar gak kedip! */}
-      {!udahSiap ? "🌙" : tema === "gelap" ? "🌙" : "☀️"}
+    <button onClick={ganti} title={`Mode: ${LABEL[mode]} - Klik untuk ganti!`} style={{
+      background: mode === "default" ? "linear-gradient(90deg,#F59E0B,#EC4899)" : mode === "terang" ? "linear-gradient(90deg,#2563EB,#60A5FA)" : "linear-gradient(90deg,#052E16,#166534)",
+      color: "white", padding: "10px 16px", borderRadius: 999, fontWeight: 900, fontSize: 13,
+      border: mode === "gelap" ? "1px solid #14532D" : "1px solid rgba(255,255,255,0.4)",
+      cursor: "pointer", whiteSpace: "nowrap", boxShadow: "0 8px 22px rgba(0,0,0,0.25)",
+    }}>
+      {LABEL[mode]} 🔄
     </button>
   );
 }

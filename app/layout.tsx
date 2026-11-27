@@ -1,46 +1,93 @@
-// app/layout.tsx - Layout PinjamLab - VERSI JUARA 1 DUNIA + TOMBOL GELAP / TERANG!
+// app/layout.tsx - Layout PinjamLab - VERSI JUARA 1 DUNIA + TOMBOL 3 MODE!
 // FIX: NAV KEDUA (Cepat + Jam Pinjam) diganti jadi <SubNav /> pintar!
 // Beranda: SubNav HILANG! Ruang/Jadwal/Cek/Pinjam: SubNav muncul ala NavBar!
 // Jam Pinjam: DIHAPUS dari Nav Kedua + Bar Pengumuman!
+// FIX 3 MODE FINAL: Default (tetap) / Terang (Background PUTIH, Card BIRU) / Gelap (Background HITAM, Card HIJAU TUA)!
+// FIX TULISAN ILANG: Badge putih + teks gradasi GAK dipaksa lagi!
 
 import "./globals.css";
 import Link from "next/link";
 import SplashScreen from "./SplashScreen";
 import NavLink from "./NavLink";
 import ThemeToggle from "./ThemeToggle";
-import SubNav from "./SubNav"; // 👈 BARU! WAJIB!
+import SubNav from "./SubNav";
 
 export const metadata = {
   title: "PinjamLab - Pinjam Ruang & Lab Tanpa Ribet!",
-  description: "Pinjam ruang & lab dalam 30 detik! Colorful, modern, memukau, rapi! Ada mode gelap & terang!",
+  description: "Pinjam ruang & lab dalam 30 detik! Colorful, modern, memukau, rapi! Ada 3 mode: Default, Terang, Gelap!",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem("pinjamlab-tema");document.documentElement.dataset.tema=t==="terang"?"terang":"gelap";}catch(e){document.documentElement.dataset.tema="gelap";}})();` }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("pinjamlab-tema");if(t!=="terang"&&t!=="gelap")t="default";document.documentElement.dataset.tema=t;}catch(e){document.documentElement.dataset.tema="default";}})();`,
+          }}
+        />
         <style>{`
-          :root, [data-tema="gelap"] { --bg: #120826; --bg-2: #1E103A; --bg-3: #2E1065; --teks: #FFFFFF; --teks-redup: #DDD6FE; --teks-redup-2: #C4B5FD; --garis: #4C1D95; --kaca: rgba(255,255,255,0.08); }
-          [data-tema="terang"] { --bg: linear-gradient(180deg,#FFF7ED 0%,#FCE7F3 30%,#EDE9FE 60%,#DBEAFE 100%); --bg-2: #FFF1F2; --bg-3: #EDE9FE; --teks: #1E1B4B; --teks-redup: #4C1D95; --teks-redup-2: #6D28D9; --garis: #FBCFE8; --kaca: rgba(255,255,255,0.65); }
-          [data-tema="terang"] body { background: var(--bg) !important; color: var(--teks) !important; }
+          :root, [data-tema="default"] {
+            --bg: #120826; --bg-2: #1E103A; --bg-3: #2E1065;
+            --teks: #FFFFFF; --teks-redup: #DDD6FE; --teks-redup-2: #C4B5FD;
+            --garis: #4C1D95; --kaca: rgba(255,255,255,0.08);
+            --aksen: #EC4899; --aksen-2: #F59E0B;
+          }
+
+          /* ===== MODE 2: TERANG = Background PUTIH, Card BIRU! ===== */
+          [data-tema="terang"] body { background: #FFFFFF !important; color: #1E3A8A !important; }
+          [data-tema="terang"] main { background: #FFFFFF !important; }
+          [data-tema="terang"] header,
+          [data-tema="terang"] footer,
+          [data-tema="terang"] section,
+          [data-tema="terang"] div[style*="background"] {
+            background: linear-gradient(135deg,#1D4ED8 0%,#2563EB 45%,#60A5FA 100%) !important;
+            border-color: #93C5FD !important;
+            box-shadow: 0 10px 30px rgba(37,99,235,0.25) !important;
+          }
+          [data-tema="terang"] main h1, [data-tema="terang"] main h2, [data-tema="terang"] main p, [data-tema="terang"] main b, [data-tema="terang"] main li { color: #FFFFFF !important; }
+          [data-tema="terang"] main > div > h2, [data-tema="terang"] main > div > p { color: #1E3A8A !important; }
+          [data-tema="terang"] span[style*="background: white"], [data-tema="terang"] a[style*="background: white"], [data-tema="terang"] a[style*="background: rgb(255"], [data-tema="terang"] button[style*="background: white"] { background: #FFFFFF !important; color: #1D4ED8 !important; }
+          [data-tema="terang"] span[style*="WebkitTextFillColor"], [data-tema="terang"] b span[style*="WebkitTextFillColor"] { -webkit-text-fill-color: transparent !important; color: transparent !important; }
+          [data-tema="terang"] .teks-putih { color: #FFFFFF !important; }
+          [data-tema="terang"] .bg-gelap { background: linear-gradient(135deg,#1D4ED8,#60A5FA) !important; border-color: #93C5FD !important; }
+
+          /* ===== MODE 3: GELAP = Background HITAM, Card HIJAU TUA! ===== */
+          [data-tema="gelap"] body { background: #000000 !important; color: #DCFCE7 !important; }
+          [data-tema="gelap"] main { background: #000000 !important; }
+          [data-tema="gelap"] header,
+          [data-tema="gelap"] footer,
+          [data-tema="gelap"] section,
+          [data-tema="gelap"] div[style*="background"] {
+            background: linear-gradient(135deg,#022C22 0%,#052E16 45%,#14532D 80%,#166534 100%) !important;
+            border-color: #14532D !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+          }
+          [data-tema="gelap"] main h1, [data-tema="gelap"] main h2, [data-tema="gelap"] main p, [data-tema="gelap"] main b, [data-tema="gelap"] main li, [data-tema="gelap"] main div { color: #DCFCE7 !important; }
+          [data-tema="gelap"] header h1, [data-tema="gelap"] header b, [data-tema="gelap"] footer b { color: #DCFCE7 !important; }
+          [data-tema="gelap"] span[style*="background: white"],
+          [data-tema="gelap"] span[style*="background:#FFFFFF"],
+          [data-tema="gelap"] span[style*="background: rgb(255"],
+          [data-tema="gelap"] a[style*="background: white"],
+          [data-tema="gelap"] a[style*="background: rgb(255"],
+          [data-tema="gelap"] button[style*="background: white"] { background: #FFFFFF !important; color: #052E16 !important; }
+          [data-tema="gelap"] span[style*="background: #22C55E"], [data-tema="gelap"] span[style*="background:#22C55E"],
+          [data-tema="gelap"] span[style*="background: #14532D"], [data-tema="gelap"] span[style*="background:#14532D"] { color: #FFFFFF !important; }
+          [data-tema="gelap"] span[style*="WebkitTextFillColor"], [data-tema="gelap"] b span[style*="WebkitTextFillColor"] { -webkit-text-fill-color: transparent !important; color: transparent !important; }
+          [data-tema="gelap"] main > div > h2, [data-tema="gelap"] main > div > p { color: #DCFCE7 !important; }
+          [data-tema="gelap"] .teks-putih { color: #DCFCE7 !important; }
+          [data-tema="gelap"] .bg-gelap { background: linear-gradient(135deg,#052E16,#14532D) !important; border-color: #14532D !important; }
+
           .kartu-hover { transition: transform 0.2s, box-shadow 0.2s; }
           .kartu-hover:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(109,40,217,0.25) !important; }
-          [data-tema="terang"] .teks-putih { color: #1E1B4B !important; }
-          [data-tema="terang"] .teks-ungu { color: #4C1D95 !important; }
-          [data-tema="terang"] .bg-gelap { background: #FFFFFF !important; border-color: #FBCFE8 !important; }
         `}</style>
       </head>
       <body style={{ margin: 0, background: "#120826", color: "white", fontFamily: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif", minHeight: "100vh" }}>
         <SplashScreen />
-
-        {/* ============ 1. BAR PENGUMUMAN ATAS - JAM PINJAM DIHAPUS! ============ */}
         <div style={{ background: "linear-gradient(90deg,#F59E0B,#EC4899,#8B5CF6,#22D3EE,#10B981)", color: "white", textAlign: "center", padding: "8px 12px", fontSize: 12, fontWeight: 800, letterSpacing: 0.3, position: "relative", zIndex: 60 }}>
           🎉 PINJAMLAB SUDAH ONLINE! &nbsp;•&nbsp; Pinjam Ruang Dalam 30 Detik! &nbsp;•&nbsp;{" "}
           <Link href="/pinjam" prefetch={true} style={{ color: "white", textDecoration: "underline", fontWeight: 900 }}>Pinjam Sekarang →</Link>
         </div>
-
-        {/* ============ 2. HEADER ============ */}
         <header style={{ background: "linear-gradient(135deg,#120826 0%,#2E1065 40%,#6D28D9 70%,#DB2777 100%)", borderBottom: "1px solid rgba(255,255,255,0.2)", position: "sticky", top: 0, zIndex: 50, boxShadow: "0 12px 40px rgba(0,0,0,0.35)" }}>
           <div style={{ maxWidth: 1180, margin: "0 auto", padding: "14px 18px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
             <Link href="/" prefetch={true} style={{ color: "white", textDecoration: "none", display: "flex", alignItems: "center", gap: 12 }}>
@@ -61,15 +108,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <ThemeToggle />
             </nav>
           </div>
-
-          {/* 👈 NAV KEDUA LAMA (Cepat teks + Jam Pinjam) UDAH GUE GANTI JADI INI! */}
           <SubNav />
         </header>
-
-        {/* ============ 3. ISI HALAMAN ============ */}
         <main style={{ maxWidth: 1180, margin: "0 auto", padding: "26px 16px 20px", minHeight: "70vh" }}>{children}</main>
-
-        {/* ============ 4. FOOTER - SAMA PERSIS KAYAK PUNYA LO! ============ */}
         <footer style={{ background: "linear-gradient(180deg,#1E103A,#0A031A)", borderTop: "1px solid #4C1D95", marginTop: 30 }}>
           <div style={{ maxWidth: 1180, margin: "0 auto", padding: "36px 18px 18px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
             <div>
