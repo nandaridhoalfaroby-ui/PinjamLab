@@ -1,9 +1,8 @@
 // app/layout.tsx - Layout PinjamLab - VERSI JUARA 1 DUNIA + TOMBOL 3 MODE!
-// FIX: NAV KEDUA (Cepat + Jam Pinjam) diganti jadi <SubNav /> pintar!
-// Beranda: SubNav HILANG! Ruang/Jadwal/Cek/Pinjam: SubNav muncul ala NavBar!
-// Jam Pinjam: DIHAPUS dari Nav Kedua + Bar Pengumuman!
-// FIX 3 MODE FINAL: Default (tetap) / Terang (Background PUTIH, Card BIRU) / Gelap (Background HITAM, Card HIJAU TUA)!
-// FIX TULISAN ILANG: Badge putih + teks gradasi GAK dipaksa lagi!
+// FIX GAMBAR ILANG: div[style*="background"] GAK BOLEH ditimpa gradasi!
+// Soalnya div gambar pake background-image, ketimpa biru = foto ilang!
+// FIX TERANG: Tulisan di luar card = BIRU TUA, di dalam card = PUTIH!
+// URUTAN MODE: Default dulu -> Terang -> Gelap -> balik Default!
 
 import "./globals.css";
 import Link from "next/link";
@@ -35,36 +34,48 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }
 
           /* ===== MODE 2: TERANG = Background PUTIH, Card BIRU! ===== */
+          /* 👈 FIX GAMBAR: Cuma header/footer/section yang ditimpa biru! div[style*="background"] JANGAN! Biar background-image foto GAK ketimpa! */
           [data-tema="terang"] body { background: #FFFFFF !important; color: #1E3A8A !important; }
-          [data-tema="terang"] main { background: #FFFFFF !important; }
+          [data-tema="terang"] main { background: #FFFFFF !important; color: #1E3A8A !important; }
+          [data-tema="terang"] main h1, [data-tema="terang"] main h2, [data-tema="terang"] main h3,
+          [data-tema="terang"] main p, [data-tema="terang"] main b, [data-tema="terang"] main li,
+          [data-tema="terang"] main span, [data-tema="terang"] main div { color: #1E3A8A !important; }
           [data-tema="terang"] header,
           [data-tema="terang"] footer,
-          [data-tema="terang"] section,
-          [data-tema="terang"] div[style*="background"] {
+          [data-tema="terang"] section {
             background: linear-gradient(135deg,#1D4ED8 0%,#2563EB 45%,#60A5FA 100%) !important;
             border-color: #93C5FD !important;
             box-shadow: 0 10px 30px rgba(37,99,235,0.25) !important;
           }
-          [data-tema="terang"] main h1, [data-tema="terang"] main h2, [data-tema="terang"] main p, [data-tema="terang"] main b, [data-tema="terang"] main li { color: #FFFFFF !important; }
-          [data-tema="terang"] main > div > h2, [data-tema="terang"] main > div > p { color: #1E3A8A !important; }
+          /* Tulisan di dalam header/footer/section/card yang background-nya GELAP: PUTIH! */
+          [data-tema="terang"] header h1, [data-tema="terang"] header b, [data-tema="terang"] header span, [data-tema="terang"] header p,
+          [data-tema="terang"] footer h1, [data-tema="terang"] footer b, [data-tema="terang"] footer p, [data-tema="terang"] footer li, [data-tema="terang"] footer span, [data-tema="terang"] footer div,
+          [data-tema="terang"] section h1, [data-tema="terang"] section h2, [data-tema="terang"] section h3, [data-tema="terang"] section p, [data-tema="terang"] section b, [data-tema="terang"] section li, [data-tema="terang"] section span, [data-tema="terang"] section div,
+          [data-tema="terang"] div[style*="background"] h1, [data-tema="terang"] div[style*="background"] h2, [data-tema="terang"] div[style*="background"] h3,
+          [data-tema="terang"] div[style*="background"] p, [data-tema="terang"] div[style*="background"] b, [data-tema="terang"] div[style*="background"] li,
+          [data-tema="terang"] div[style*="background"] span, [data-tema="terang"] div[style*="background"] div { color: #FFFFFF !important; }
+          /* 👈 KECUALI div GAMBAR: teks di atas foto tetep PUTIH + ada shadow biar kebaca, tapi background-image-nya JANGAN ditimpa! */
+          [data-tema="terang"] div[style*="background-image"] { background-color: transparent !important; }
           [data-tema="terang"] span[style*="background: white"], [data-tema="terang"] a[style*="background: white"], [data-tema="terang"] a[style*="background: rgb(255"], [data-tema="terang"] button[style*="background: white"] { background: #FFFFFF !important; color: #1D4ED8 !important; }
+          [data-tema="terang"] span[style*="background: white"] *, [data-tema="terang"] a[style*="background: white"] * { color: #1D4ED8 !important; }
           [data-tema="terang"] span[style*="WebkitTextFillColor"], [data-tema="terang"] b span[style*="WebkitTextFillColor"] { -webkit-text-fill-color: transparent !important; color: transparent !important; }
           [data-tema="terang"] .teks-putih { color: #FFFFFF !important; }
           [data-tema="terang"] .bg-gelap { background: linear-gradient(135deg,#1D4ED8,#60A5FA) !important; border-color: #93C5FD !important; }
 
           /* ===== MODE 3: GELAP = Background HITAM, Card HIJAU TUA! ===== */
+          /* 👈 SAMA: div[style*="background"] JANGAN ditimpa, biar foto GAK ilang! */
           [data-tema="gelap"] body { background: #000000 !important; color: #DCFCE7 !important; }
           [data-tema="gelap"] main { background: #000000 !important; }
           [data-tema="gelap"] header,
           [data-tema="gelap"] footer,
-          [data-tema="gelap"] section,
-          [data-tema="gelap"] div[style*="background"] {
+          [data-tema="gelap"] section {
             background: linear-gradient(135deg,#022C22 0%,#052E16 45%,#14532D 80%,#166534 100%) !important;
             border-color: #14532D !important;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
           }
           [data-tema="gelap"] main h1, [data-tema="gelap"] main h2, [data-tema="gelap"] main p, [data-tema="gelap"] main b, [data-tema="gelap"] main li, [data-tema="gelap"] main div { color: #DCFCE7 !important; }
           [data-tema="gelap"] header h1, [data-tema="gelap"] header b, [data-tema="gelap"] footer b { color: #DCFCE7 !important; }
+          [data-tema="gelap"] div[style*="background-image"] { background-color: transparent !important; }
           [data-tema="gelap"] span[style*="background: white"],
           [data-tema="gelap"] span[style*="background:#FFFFFF"],
           [data-tema="gelap"] span[style*="background: rgb(255"],
