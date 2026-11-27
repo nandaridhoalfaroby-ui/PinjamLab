@@ -1,6 +1,7 @@
 // app/page.tsx - Beranda PinjamLab - VERSI JUARA 1 DUNIA + CAROUSEL OTOMATIS!
 // Colorful, anti-white 100%, sangat modern, sangat memukau,
 // tata letak sangat rapi, kayak website yang pernah Juara 1 dunia!
+// FIX: Baris "Jam pinjam 07:00 - 17:00..." di CTA paling bawah UDAH DIHAPUS!
 
 import { supabasePublik } from "@/lib/supabase";
 import Link from "next/link";
@@ -187,7 +188,7 @@ export default async function Beranda() {
         </div>
       </div>
 
-      {/* ============ 6. DAFTAR RUANG - CAROUSEL GESER OTOMATIS! 👈 INI YANG DIGANTI! ============ */}
+      {/* ============ 6. DAFTAR RUANG - CAROUSEL GESER OTOMATIS! ============ */}
       <div style={{ marginTop: 30 }}>
         <RuangCarousel list={list} />
       </div>
@@ -210,7 +211,7 @@ export default async function Beranda() {
         </div>
       </div>
 
-      {/* ============ 8. CTA PENUTUP - PALING MEMUKAU ============ */}
+      {/* ============ 8. CTA PENUTUP - JAM PINJAM UDAH DIHAPUS! ============ */}
       <div style={{ marginTop: 28, background: "linear-gradient(135deg,#F59E0B,#EC4899,#8B5CF6)", borderRadius: 28, padding: 30, textAlign: "center", border: "1px solid rgba(255,255,255,0.4)", boxShadow: "0 20px 60px rgba(236,72,153,0.4)" }}>
         <div style={{ fontSize: 42 }}>🧪✨</div>
         <h2 style={{ color: "white", fontSize: 32, fontWeight: 900, margin: "10px 0 6px", lineHeight: 1.1 }}>Yuk Pinjam Ruang Sekarang!<br />Gratis, Cepat, Tanpa Ribet!</h2>
@@ -219,7 +220,8 @@ export default async function Beranda() {
           <Link href="/pinjam" style={{ background: "#120826", color: "white", padding: "14px 28px", borderRadius: 999, fontWeight: 900, textDecoration: "none", fontSize: 15 }}>📝 Pinjam Sekarang →</Link>
           <Link href="/cek" style={{ background: "white", color: "#DB2777", padding: "14px 24px", borderRadius: 999, fontWeight: 900, textDecoration: "none", fontSize: 15 }}>🔍 Cek Status Pinjamanmu</Link>
         </div>
-        <p style={{ color: "white", fontSize: 11, opacity: 0.8, marginTop: 12 }}>Jam pinjam 07:00 - 17:00 • Maks 3 jam • Maks 60 hari ke depan • Bukan Sabtu / Minggu</p>
+        {/* 👈 INI YANG DIGANTI! Tadi "Jam pinjam 07:00 - 17:00...", sekarang ini! */}
+        <p style={{ color: "white", fontSize: 11, opacity: 0.8, marginTop: 12 }}>Gratis • Tanpa kertas • Cek status online!</p>
       </div>
     </div>
   );
